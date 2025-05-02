@@ -1,6 +1,6 @@
-import type { Module } from "vuex/types/index.js";
+import type { Module } from "vuex";
 import type { Post } from "../../entities/Post/types";
-import type { Rootstate } from "../store";
+import type { RootState } from "../store";
 
 export interface PostsState {
   all: Post[];
@@ -11,7 +11,7 @@ export interface PostsState {
   error: string | null;
 }
 
-export const PostModule: Module<PostsState, Rootstate> = {
+export const PostModule: Module<PostsState, RootState> = {
   namespaced: true,
   state: (): PostsState => ({
     all: [],

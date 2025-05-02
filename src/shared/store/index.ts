@@ -1,15 +1,19 @@
-import { createStore } from "vuex/types/index.js";
+import { createStore } from "vuex";
 import { PostModule, type PostsState } from "../modules/posts";
 
 
-export interface Rootstate {
+export interface RootState {
   posts: PostsState;
 }
 
-export const store = createStore<Rootstate>({
+export const store = createStore<RootState>({
   modules: {
     posts: PostModule
   }
 });
 
-export type Store =  typeof store;
+export type AppStore = typeof store
+
+declare module 'vuex' {
+  export function useStore<S = RootState>(): AppStore
+}
