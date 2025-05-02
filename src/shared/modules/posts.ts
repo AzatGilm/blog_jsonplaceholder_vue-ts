@@ -30,7 +30,7 @@ export const PostModule: Module<PostsState, RootState> = {
       const lowerCaseQuery = query.toLocaleLowerCase();
       state.searchQuery = lowerCaseQuery;
       state.filtered = state.all.filter((el) => {
-        return el.title.toLocaleLowerCase().includes(lowerCaseQuery);
+        return el.title.toLocaleLowerCase().includes(lowerCaseQuery) || el.body.toLocaleLowerCase().includes(lowerCaseQuery);
       });
     },
     SET_CURRENT_PAGE(state: PostsState, page: number) {
@@ -68,7 +68,7 @@ export const PostModule: Module<PostsState, RootState> = {
     },
   },
   getters: {
-    getById: (state: PostsState) => (id: number) =>
+    getById: (state: PostsState) => (id: number): Post | undefined =>
       state.all.find((el) => el.id == id),
     totalPages:
       (state: PostsState) =>

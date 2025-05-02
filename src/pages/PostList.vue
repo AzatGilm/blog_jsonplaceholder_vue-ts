@@ -1,8 +1,12 @@
 <template>
   <div class="post-list">
-    <post-card v-for="post in paginatedPosts" :key="post.id" :post="post" />
-
-    <Pagination :currentPage="currentPage" :totalPages="totalPages" />
+    <search-input v-model="searchQuery" />
+    <post-card v-for="post in paginatedPosts" :key="post.id" :post="post" @click="goToPost(post.id)" />
+    <Pagination
+      :currentPage="currentPage"
+      :totalPages="totalPages"
+      @page-change="setCurrentPage"
+    />
   </div>
 </template>
 
@@ -13,11 +17,12 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RootState } from "../shared/store";
 import Pagination from "@/shared/UI/Pagination.vue";
+import SearchInput from "@/shared/UI/SearchInput.vue";
 // import PostDetails from "./PostDetails.vue";
 
 export default defineComponent({
   name: "PostList",
-  components: { PostCard, Pagination },
+  components: { PostCard, Pagination, SearchInput },
 
   setup() {
     const store = useStore<RootState>();
@@ -37,17 +42,33 @@ export default defineComponent({
     const totalPages = computed(() =>
       store.getters["posts/totalPages"](postsPerPage)
     );
+    const searchQuery = computed({
+      get: () => store.state.posts.searchQuery,
+      set: (val) => store.commit("posts/SET_SEARCHQUERY", val),
+    });
     const paginatedPosts = computed(() =>
       store.getters["posts/paginated"](postsPerPage)
     );
+    const goToPost = (id: number) => {
+      router.push(`/posts/${id}`);
+    };
 
     return {
       paginatedPosts,
       currentPage,
-      totalPages
+      totalPages,
+      searchQuery,
+      goToPost,
+      setCurrentPage: (page: number) => (currentPage.value = page),
     };
   },
 });
 </script>
 
-<style></style>
+<style>
+.post-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+</style>

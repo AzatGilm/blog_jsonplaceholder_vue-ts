@@ -6,12 +6,11 @@ import router from "./router"
 
 const app = createApp(App)
 
-console.log('[Store check]', store) // Проверяем store ДО подключения
-
+console.log('[Store check]', store)
 app.use(store)
 app.use(router)
 
-console.log('[App check]', app) // Проверяем экземпляр приложения
+console.log('[App check]', app) 
 
 app.mount("#app")
 

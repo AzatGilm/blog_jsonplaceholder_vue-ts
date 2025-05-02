@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router"
 import PostList from "../pages/PostList.vue"
+import PostDetails from "@/pages/PostDetails.vue"
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -8,12 +9,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'PostList',
     component: PostList
   },
-  // {
-  //   path: '/posts/:id',
-  //   name: 'PostDetails',
-  //   component: PostDetails,
-  //   props: true
-  // }
+  {
+    path: '/posts/:id',
+    name: 'PostDetails',
+    component: PostDetails,
+    props: true
+  }
 ] 
 
 
