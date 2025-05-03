@@ -33,8 +33,12 @@ export default defineComponent({
     totalPages: number;
     currentPage: number;
   }) {
-    const pages = computed(() =>
+    console.log('totalPages',totalPages);
+    
+    const pages = computed(() => 
+      // console.log('Вычисляю pages...');
       Array.from({ length: totalPages }, (_, i) => i + 1)
+
     );
 
     return { pages };
@@ -48,17 +52,18 @@ export default defineComponent({
   justify-content: center;
   gap: 8px;
   margin-top: 20px;
+  height: 25px;
 }
 .pagination-btn {
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #2f2f2f;
   background: white;
   cursor: pointer;
   border-radius: 4px;
 }
 .active {
-  background: #42b983;
+  background: #6760a8;
   color: white;
-  border-color: #42b983;
+  border-color: #11955a;
 }
 </style>

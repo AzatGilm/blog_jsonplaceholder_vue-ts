@@ -34,7 +34,7 @@ export default defineComponent({
 .post-card {
   padding: 20px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #d3d3e6;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;

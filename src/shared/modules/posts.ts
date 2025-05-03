@@ -73,7 +73,7 @@ export const PostModule: Module<PostsState, RootState> = {
     totalPages:
       (state: PostsState) =>
       (perPage: number): number =>
-        Math.ceil(state.filtered.length / perPage),
+        Math.ceil(state.all.length / perPage),
     paginated:
       (state: PostsState) =>
       (perPage: number): Post[] => {

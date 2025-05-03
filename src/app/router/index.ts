@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router"
-import PostList from "../pages/PostList.vue"
 import PostDetails from "@/pages/PostDetails.vue"
+import PostList from "@/pages/PostList.vue"
 
 
 const routes: Array<RouteRecordRaw> = [

@@ -36,8 +36,8 @@ export default defineComponent({
     );
     console.log(post);
 
-    const loading = computed(() => store.state.posts.loading);
-    const error = computed(() => store.state.posts.error);
+    const loading = computed<boolean>(() => store.state.posts.loading);
+    const error = computed<string | null>(() => store.state.posts.error);
 
     if (!post.value && store.state.posts.all.length === 0) {
       store.dispatch("posts/fetchAll");

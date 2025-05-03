@@ -1,12 +1,20 @@
 <template>
   <div class="post-list">
     <search-input v-model="searchQuery" />
-    <post-card v-for="post in paginatedPosts" :key="post.id" :post="post" @click="goToPost(post.id)" />
-    <Pagination
-      :currentPage="currentPage"
-      :totalPages="totalPages"
-      @page-change="setCurrentPage"
-    />
+    <div v-if="loading">Загрузка...</div>
+    <div v-else>
+      <post-card
+        v-for="post in paginatedPosts"
+        :key="post.id"
+        :post="post"
+        @click="goToPost(post.id)"
+      />
+      <Pagination
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        @page-change="setCurrentPage"
+      />
+    </div>
   </div>
 </template>
 
@@ -26,18 +34,19 @@ export default defineComponent({
 
   setup() {
     const store = useStore<RootState>();
-    // console.log('test:' , store.state.posts);
     const router = useRouter();
     const postsPerPage: number = 10;
 
-    if (store.state.posts.all.length === 0) {
+    if (!store.state.posts.loading && store.state.posts.all.length === 0) {
       store.dispatch("posts/fetchAll");
-      console.log(store.state.posts.all);
     }
+
+    console.log("test:", store.state.posts);
     const currentPage = computed({
       get: () => store.state.posts.currentPage,
       set: (val) => store.commit("posts/SET_CURRENT_PAGE", val),
     });
+    const loading = computed<boolean>(() => store.state.posts.loading);
 
     const totalPages = computed(() =>
       store.getters["posts/totalPages"](postsPerPage)
@@ -58,6 +67,7 @@ export default defineComponent({
       currentPage,
       totalPages,
       searchQuery,
+      loading,
       goToPost,
       setCurrentPage: (page: number) => (currentPage.value = page),
     };
