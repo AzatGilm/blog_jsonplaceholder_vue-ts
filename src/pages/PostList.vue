@@ -41,11 +41,8 @@ export default defineComponent({
       store.dispatch("posts/fetchAll");
     }
 
-    console.log("test:", store.state.posts);
-    const currentPage = computed({
-      get: () => store.state.posts.currentPage,
-      set: (val) => store.commit("posts/SET_CURRENT_PAGE", val),
-    });
+    // console.log("test:", store.state.posts);
+    const currentPage = computed(() => store.state.posts.currentPage);
     const loading = computed<boolean>(() => store.state.posts.loading);
 
     const totalPages = computed(() =>
@@ -61,6 +58,9 @@ export default defineComponent({
     const goToPost = (id: number) => {
       router.push(`/posts/${id}`);
     };
+    const setCurrentPage = (page: number) => {
+      store.commit('posts/SET_CURRENT_PAGE', page);
+    };
 
     return {
       paginatedPosts,
@@ -69,7 +69,7 @@ export default defineComponent({
       searchQuery,
       loading,
       goToPost,
-      setCurrentPage: (page: number) => (currentPage.value = page),
+      setCurrentPage
     };
   },
 });

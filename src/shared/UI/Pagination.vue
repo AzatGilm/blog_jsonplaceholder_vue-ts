@@ -33,10 +33,9 @@ export default defineComponent({
     totalPages: number;
     currentPage: number;
   }) {
-    console.log('totalPages',totalPages);
+    // console.log('totalPages',totalPages);
     
     const pages = computed(() => 
-      // console.log('Вычисляю pages...');
       Array.from({ length: totalPages }, (_, i) => i + 1)
 
     );

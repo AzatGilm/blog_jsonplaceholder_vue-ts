@@ -6,11 +6,9 @@ import router from "./app/router"
 
 const app = createApp(App)
 
-console.log('[Store check]', store)
 app.use(store)
 app.use(router)
 
-console.log('[App check]', app) 
 
 app.mount("#app")
 
